@@ -14,11 +14,13 @@ const Navbar = () => {
     <div className=" bg-gray-950 h-24 text-white flex justify-around items-center w-full">
       <div className="first">
         <div className="logo w-20 ">
-          <img
-            className="hover:scale-110 transition-all"
-            src="logo.png"
-            alt="logo"
-          />
+          <Link to="/">
+            <img
+              className="hover:scale-110 transition-all"
+              src="logo.png"
+              alt="logo"
+            />
+          </Link>
         </div>
       </div>
       <div className="second hidden md:flex">
@@ -45,7 +47,10 @@ const Navbar = () => {
       </div>
       <div className="third hidden md:flex space-x-6 items-center ">
         {/* <CgSearch className="cursor-pointer" /> */}
-        <LuShoppingCart className="cursor-pointer" />
+        <Link to="/cart">
+          {" "}
+          <LuShoppingCart className="cursor-pointer" />
+        </Link>
         <Link
           to="/signin"
           className="bg-[#202020] px-4 py-2 rounded-md bg-gray-90 hover:bg-black"

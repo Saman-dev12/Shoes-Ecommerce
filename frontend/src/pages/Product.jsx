@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductDetail = ({ product }) => {
-  // Sample data for colors and sizes
-  const sampleColors = ["red", "blue", "green", "yellow"];
   const sampleSizes = ["S", "M", "L", "XL"];
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
+  };
+
+  const handleAddToCart = () => {
+    // Implement your logic to add the product to the cart with the selected size and quantity
+    console.log(`Added to cart: ${product.name} - Size: ${selectedSize}`);
+  };
 
   return (
     <div className="bg-white">
@@ -26,7 +35,7 @@ const ProductDetail = ({ product }) => {
               product.name
             </h1>
             <div className="mt-3">
-              <h2 className="text-3xl text-gray-900">Rs. {"10000"}</h2>
+              <h2 className="text-3xl text-gray-900">Rs. product.price</h2>
             </div>
 
             {/* Description and details */}
@@ -39,75 +48,71 @@ const ProductDetail = ({ product }) => {
               </p>
             </div>
 
-            <form className="mt-6">
-              {/* Colors */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-700">Color</h3>
-                <div className="flex items-center space-x-3 mt-2">
-                  {sampleColors.map((color, index) => (
-                    <label
-                      key={index}
-                      className={`bg-${color}-600 h-8 w-8 rounded-full flex items-center justify-center cursor-pointer border-2 border-white`}
-                    >
-                      <input
-                        type="radio"
-                        name="color-choice"
-                        value={color}
-                        className="sr-only"
-                        aria-labelledby={`color-choice-${index}-label`}
-                      />
-                      <span
-                        id={`color-choice-${index}-label`}
-                        className="sr-only"
-                      >
-                        {color}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sizes */}
-              <div className="mt-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-700">Size</h3>
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Size guide
-                  </a>
-                </div>
-
-                <div className="grid grid-cols-4 gap-4 mt-2">
-                  {sampleSizes.map((size, index) => (
-                    <label
-                      key={index}
-                      className="relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase cursor-pointer focus:outline-none bg-white hover:bg-gray-100"
-                    >
-                      <input
-                        type="radio"
-                        name="size-choice"
-                        value={size}
-                        className="sr-only"
-                        aria-labelledby={`size-choice-${index}-label`}
-                      />
-                      <span id={`size-choice-${index}-label`}>{size}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="mt-10">
-                <button
-                  type="submit"
-                  className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            {/* Sizes */}
+            <div className="mt-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-700">Size</h3>
+                <Link
+                  to="https://www.shoecarnival.com/content/sizechart"
+                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Add to cart
-                </button>
+                  Size guide
+                </Link>
               </div>
-            </form>
+
+              <div className="grid grid-cols-4 gap-4 mt-2">
+                {sampleSizes.map((size, index) => (
+                  <label
+                    key={index}
+                    className={`relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase cursor-pointer focus:outline-none ${
+                      selectedSize === size
+                        ? "bg-indigo-600 text-white"
+                        : "bg-white hover:bg-gray-100"
+                    }`}
+                    onClick={() => handleSizeChange(size)}
+                  >
+                    <input
+                      type="radio"
+                      name="size-choice"
+                      value={size}
+                      className="sr-only"
+                      aria-labelledby={`size-choice-${index}-label`}
+                    />
+                    <span id={`size-choice-${index}-label`}>{size}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Quantity */}
+            <div className="mt-6">
+              <label
+                htmlFor="quantity"
+                className="text-lg font-semibold text-gray-700"
+              >
+                Quantity
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                value="1"
+                onChange={(e) => handleQuantityChange(e.target.value)}
+                className="w-16 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 ml-2"
+              />
+            </div>
+
+            {/* Actions */}
+            <div className="mt-10">
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
       </div>

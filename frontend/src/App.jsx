@@ -10,6 +10,33 @@ import Contact from "./pages/Contact";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 
+const cartItems = [
+  {
+    id: 1,
+    name: "Stylish Sneakers",
+    image: "/img1.jpeg",
+    category: "Footwear",
+    price: 50.0,
+    quantity: 2,
+  },
+  {
+    id: 2,
+    name: "Casual Sandals",
+    image: "/img2.jpeg",
+    category: "Footwear",
+    price: 30.0,
+    quantity: 1,
+  },
+  {
+    id: 3,
+    name: "Running Shoes",
+    image: "/img3.jpeg",
+    category: "Footwear",
+    price: 65.0,
+    quantity: 3,
+  },
+];
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +48,7 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <Products /> },
       { path: "/product/:id", element: <Product /> },
-      { path: "/cart", element: <Cart /> },
+      { path: "/cart", element: <Cart cartItems={cartItems} /> },
       { path: "/signin", element: <Login /> },
       { path: "/register", element: <Signup /> },
     ],
